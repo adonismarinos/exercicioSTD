@@ -8,7 +8,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/* by adonis
+*
+*
+* */
 /**
  * Servidor que espera por uma mensagem do cliente (String em UTF) e depois
  * envia uma String de resposta, tambem em UTF
