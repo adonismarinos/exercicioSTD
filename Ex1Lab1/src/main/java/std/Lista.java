@@ -24,15 +24,15 @@ public class Lista {
             }
             return false;
         }
-        public boolean delNaLista(ArrayList<String> s, String x) {
+        public String delNaLista(String s) {
             if(listas.containsKey(s)==true) {
                 ArrayList<String> aux = this.listas.get(s);
                 String item = aux.get(aux.size()-1);
                 aux.remove(aux.size()-1);
-                System.out.println("O último item da lista " + s + " é: " + item);
-                return true;
+                String result = "O último item da lista " + s + " é: " + item;
+                return result;
             }
-            return false;
+            return null;
         }
 
     }
@@ -45,5 +45,3 @@ public class Lista {
 //por consequência, removê-lo dessa lista.  Desenvolva um aplicativo cliente capaz de fazer
 //requisições a esse servidor.  Cliente e Servidor poderão ser desenvolvidos em diferentes
 //linguagens de programação ou em uma mesma linguagem.
-
-}

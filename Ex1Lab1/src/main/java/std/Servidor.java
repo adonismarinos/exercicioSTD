@@ -6,8 +6,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 /* by adonis
 *
 *
@@ -20,19 +18,19 @@ import java.util.HashMap;
  * 2014-08-24
  * @author Emerson Ribeiro de Mello
  */
-public class Servidor {
+public class Cliente
+Lista
+        ServidorServidor {
 
     public static void main(String[] args) throws IOException {
 
-        HashMap<String, ArrayList<String>> memoria = new HashMap<String, ArrayList<String>>();
-
+        Lista memoria = new Lista();
         /* Registra servico na porta 1234 e aguarda por conexoes */
         ServerSocket servidor = new ServerSocket(1234);
 
         System.out.println("Aguardando por conexoes");
 
         while (true) {
-
             Socket conexao = servidor.accept();
             System.out.println("Cliente conectou " + conexao);
             /*********************************************************/
@@ -44,24 +42,25 @@ public class Servidor {
             /* inicia a comunicacao */
             String mensagem = fluxoEntrada.readUTF();
             System.out.println("Cliente> " + mensagem);
-            String com = new String();
-            String arg1 = new String();
-            String arg2 = new String();
-
-            if (com == "criar") {
-                if (memoria.containsKey(arg1) == false) {
-                    memoria.put(arg1, new ArrayList<String>());
-                }
+            String[] aux = mensagem.split(",");
+            if(aux[0].equals("criar")){
+                memoria.criarLista(aux[1]);
             }
-            fluxoSaida.writeUTF("Oi, eu sou o servidor!");
-            /*********************************************************/
-
+            else if(aux[0].equals("add")){
+                memoria.addNaLista(aux[1],aux[2]);
+            }
+            else if(aux[0].equals("del")){
+                String msg = memoria.delNaLista(aux[1]);
+                fluxoSaida.writeUTF(msg);
+            }
+            else{
+                System.out.println("Comando invalido");
+            }
             /* Fecha fluxos e socket */
             fluxoEntrada.close();
             fluxoSaida.close();
             conexao.close();
         }
-        servidor.close();
     }
 
 }
